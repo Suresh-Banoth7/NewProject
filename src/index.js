@@ -5,7 +5,7 @@ import{BrowserRouter,Routes,Route} from 'react-router-dom'
 import Login from './Auth/login';
 import Signup from './Auth/signup';
 import ResetPassword from './Auth/resetPassword';
-import Home from './home';
+import Home from './Home';
 
 
 

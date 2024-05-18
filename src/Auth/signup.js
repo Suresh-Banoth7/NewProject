@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { emailValidation } from "../Utils/utils"
+import axios from "axios"
 
 
 function Signup() {
@@ -16,7 +17,10 @@ function Signup() {
     var [emailError, setEmailError] = useState(" ")
     var [mobileError, setMobileError] = useState(" ")
     var [passwordError, setPwordError] = useState(" ")
-   
+   //create variables for errors
+   var [apiSuccess,setApiSuccess] = useState(" ")
+   var [apifail,setApiFailed] = useState(" ")
+
 
     function HandleFormName(e) {
         setName(e.target.value)
@@ -33,7 +37,7 @@ function Signup() {
     function HandleFormPword(e) {
         setPword(e.target.value)
     }
-    function HandleCA() {
+    async function HandleCA() {
        
         if(name.length<3){
             setNameError("name should be more than 3 characters")
@@ -58,6 +62,21 @@ function Signup() {
             setPwordError("more than 8 characters")
         }
       
+        var apiInput ={
+            'name':name,'email':email, 'password':password ,'mobile':mobile
+        }
+
+        var response = await axios.post('https://api.softwareschool.co/auth/signup',apiInput)
+        console.log(response.data.result)
+        if(response.data.result=="SUCCESS"){
+              setApiSuccess(response.data.message)
+              setApiFailed(" ")
+        }else{
+                 setApiFailed(response.data.message)
+                 setApiSuccess(" ")
+        }
+        
+
     }
 
     return (
@@ -90,6 +109,16 @@ function Signup() {
                     </div>
                     <div className="d-grid">
                         <button className="btn btn-primary" onClick={e => HandleCA()} >Create Account</button>
+                    </div>
+                    <div className="alert alert-success">
+                        {
+                            apiSuccess
+                        }
+                    </div>
+                    <div className="alert alert-danger">
+                        {
+                           apifail
+                        }
                     </div>
                 </div>
             </div>
