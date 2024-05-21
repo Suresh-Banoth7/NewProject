@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { emailValidation } from "../Utils/utils";
+import axios from "axios";
 
 function Login() {
 
@@ -16,6 +17,11 @@ function Login() {
     var[emailError,setEmailError] = useState(" ")
     var[passwordError,setPwordError]=useState(" ")
 
+    // Success and Error message
+
+    var[apiSuccess , setapiSuccessMsg]=useState(" ")
+    var[apiFail,setapiFailMsg]=useState(" ")
+
 
     function HandleEmail(e) {
 
@@ -27,7 +33,7 @@ function Login() {
     }
 
 
-    function HandleLogin() {
+     async function HandleLogin() {
         
         if(emailValidation(email)){
             setEmailError(" ")
@@ -39,6 +45,25 @@ function Login() {
         }else{
             setPwordError("password is incorrect")
         }
+
+        var apiInput ={
+            'email':email, 'password':password
+        }
+       try {
+
+        var response = await axios.post('https://api.softwareschool.co/auth/login',apiInput)
+        console.log(response.data.result)
+        if(response.data.result=="SUCCESS"){
+             setapiSuccessMsg(response.data.message)
+             setapiFailMsg(" ")
+        }else{
+            setapiFailMsg(response.data.message)
+            setapiSuccessMsg(" ")
+        }
+        
+       } catch (error) {
+          console.log(error.message)
+       }
     }
     return (
 
@@ -63,6 +88,12 @@ function Login() {
 
                     <div className="d-grid">
                         <button className="btn btn-primary" onClick={e => HandleLogin()}>Login</button>
+                    </div>
+                    <div className="alert alert-success">
+                        {apiSuccess}
+                    </div>
+                    <div className="alert alert-danger">
+                        {apiFail}
                     </div>
                 </div>
             </div>
