@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { emailValidation } from "../Utils/utils";
-import axios from "axios";
+//import axios from "axios";
+
 
 function Login() {
 
@@ -49,22 +50,47 @@ function Login() {
         var apiInput ={
             'email':email, 'password':password
         }
-       try {
 
-        var response = await axios.post('https://api.softwareschool.co/auth/login',apiInput)
-        console.log(response.data.result)
-        if(response.data.result=="SUCCESS"){
-             setapiSuccessMsg(response.data.message)
-             setapiFailMsg(" ")
-             console.log(response.data.data.userId)
-             localStorage.setItem('LoginID',response.data.data.userId)
-             window.location='/'
-        }else{
-            setapiFailMsg(response.data.message)
-            setapiSuccessMsg(" ")
+        var fetchApiresponse ={
+            headers: {
+                'Content-type':'application/json'
+            },
+            method:'POST',
+            body:JSON.stringify(apiInput)
         }
+       try {
+            var responeOffetch = await fetch("https://api.softwareschool.co/auth/login",fetchApiresponse)
+            if(responeOffetch.ok==true){
+                var api = await responeOffetch.json()
+                if(api.result=="SUCCESS"){
+                         setapiSuccessMsg(api.message)
+                         setapiFailMsg(" ")
+                         localStorage.setItem('LoginID',api.userId)
+                         window.location='/'
+                    }else{
+                        setapiFailMsg(api.message)
+                        setapiSuccessMsg(" ")
+                    }
+                }else{
+                     setapiFailMsg(responeOffetch.status+" error")
+                }
+            }
+           
+           
+        // var response = await axios.post('https://api.softwareschool.co/auth/login',apiInput)
+        // console.log(response.data.result)
+        // if(response.data.result=="SUCCESS"){
+        //      setapiSuccessMsg(response.data.message)
+        //      setapiFailMsg(" ")
+        //      console.log(response.data.data.userId)
+        //      localStorage.setItem('LoginID',response.data.data.userId)
+        //      window.location='/'
+        // }else{
+        //     setapiFailMsg(response.data.message)
+        //     setapiSuccessMsg(" ")
+        // }
         
-       } catch (error) {
+        catch (error) {
           console.log(error.message)
        }
     }
