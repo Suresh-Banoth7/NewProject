@@ -56,6 +56,9 @@ function Login() {
         if(response.data.result=="SUCCESS"){
              setapiSuccessMsg(response.data.message)
              setapiFailMsg(" ")
+             console.log(response.data.data.userId)
+             localStorage.setItem('LoginID',response.data.data.userId)
+             window.location='/'
         }else{
             setapiFailMsg(response.data.message)
             setapiSuccessMsg(" ")
