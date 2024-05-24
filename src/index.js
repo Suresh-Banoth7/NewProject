@@ -5,7 +5,8 @@ import{BrowserRouter,Routes,Route} from 'react-router-dom'
 import Login from './Auth/login';
 import Signup from './Auth/signup';
 import ResetPassword from './Auth/resetPassword';
-import Home from './Home';
+import Home from './Home/Home'
+import Course from './Courses/Course';
 
 
 
@@ -17,7 +18,8 @@ root.render(
          <Route  path='/login' Component={Login}/>
          <Route  path='/create-account' Component={Signup}/>
          <Route  path='/reset' Component={ResetPassword}/>
-         <Route  path='/' Component={Home}/>
+         <Route path='/' Component={Home}/>
+         <Route path='/course' Component={Course}/>
         
       </Routes>
    </BrowserRouter>

@@ -15,13 +15,13 @@ function Login() {
 
 
     // create error variables
-    var[emailError,setEmailError] = useState(" ")
-    var[passwordError,setPwordError]=useState(" ")
+    var [emailError, setEmailError] = useState(" ")
+    var [passwordError, setPwordError] = useState(" ")
 
     // Success and Error message
 
-    var[apiSuccess , setapiSuccessMsg]=useState(" ")
-    var[apiFail,setapiFailMsg]=useState(" ")
+    var [apiSuccess, setapiSuccessMsg] = useState(" ")
+    var [apiFail, setapiFailMsg] = useState(" ")
 
 
     function HandleEmail(e) {
@@ -34,49 +34,49 @@ function Login() {
     }
 
 
-     async function HandleLogin() {
-        
-        if(emailValidation(email)){
+    async function HandleLogin() {
+
+        if (emailValidation(email)) {
             setEmailError(" ")
-        }else{
+        } else {
             setEmailError(" email is not valid")
         }
-        if(password.length>8){
+        if (password.length > 8) {
             setPwordError(" ")
-        }else{
+        } else {
             setPwordError("password is incorrect")
         }
 
-        var apiInput ={
-            'email':email, 'password':password
+        var apiInput = {
+            'email': email, 'password': password
         }
 
-        var fetchApiresponse ={
+        var fetchApiresponse = {
             headers: {
-                'Content-type':'application/json'
+                'Content-type': 'application/json'
             },
-            method:'POST',
-            body:JSON.stringify(apiInput)
+            method: 'POST',
+            body: JSON.stringify(apiInput)
         }
-       try {
-            var responeOffetch = await fetch("https://api.softwareschool.co/auth/login",fetchApiresponse)
-            if(responeOffetch.ok==true){
+        try {
+            var responeOffetch = await fetch("https://api.softwareschool.co/auth/login", fetchApiresponse)
+            if (responeOffetch.ok == true) {
                 var api = await responeOffetch.json()
-                if(api.result=="SUCCESS"){
-                         setapiSuccessMsg(api.message)
-                         setapiFailMsg(" ")
-                         localStorage.setItem('LoginID',api.userId)
-                         window.location='/'
-                    }else{
-                        setapiFailMsg(api.message)
-                        setapiSuccessMsg(" ")
-                    }
-                }else{
-                     setapiFailMsg(responeOffetch.status+" error")
+                if (api.result == "SUCCESS") {
+                    setapiSuccessMsg(api.message)
+                    setapiFailMsg(" ")
+                    localStorage.setItem('LoginID', api.userId)
+                    window.location = '/'
+                } else {
+                    setapiFailMsg(api.message)
+                    setapiSuccessMsg(" ")
                 }
+            } else {
+                setapiFailMsg(responeOffetch.status + " error")
             }
-           
-           
+        }
+
+
         // var response = await axios.post('https://api.softwareschool.co/auth/login',apiInput)
         // console.log(response.data.result)
         // if(response.data.result=="SUCCESS"){
@@ -89,10 +89,10 @@ function Login() {
         //     setapiFailMsg(response.data.message)
         //     setapiSuccessMsg(" ")
         // }
-        
+
         catch (error) {
-          console.log(error.message)
-       }
+            console.log(error.message)
+        }
     }
     return (
 
@@ -106,7 +106,7 @@ function Login() {
                     <h1 className="mt-3 mb-3 text-center">Login</h1>
                     <div className="mt-3 mb-3">
                         <label>Email</label>
-                        <input type="text" onChange={e =>HandleEmail(e)} className="form-control" placeholder="Email" />
+                        <input type="text" onChange={e => HandleEmail(e)} className="form-control" placeholder="Email" />
                         <div className="text-danger">{emailError}</div>
                     </div>
                     <div className="mt-3 mb-3">
