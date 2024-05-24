@@ -19,7 +19,7 @@ function Header() {
 
     return (
 
-        <nav className="navbar shadow mt-3 navbar-expand-lg navbar bg-primary p-2">
+        <nav className="navbar shadow mt-3 navbar-expand-lg navbar bg-primary-subtle p-2">
 
             <a href="/" className="navbar-brand">
                 <img src="https://d2b98ifobtd07j.cloudfront.net/l12.png" width="200px" />
