@@ -1,3 +1,4 @@
+import Form from "../Form";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
 
@@ -12,6 +13,7 @@ function Course() {
                 </div>
                 <div className="col-12">
                  <h1>Your Courses</h1>
+                 <Form/>
                 </div>
                 <div className="col-12">
                    <Footer/>

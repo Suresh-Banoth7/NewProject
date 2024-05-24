@@ -4,7 +4,7 @@ function Footer(){
     return(
 
         <div className="shadow">
-            <h3>Footer links</h3>
+            <h1>Footer links</h1>
         </div>
     )
 }
